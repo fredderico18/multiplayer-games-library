@@ -23,6 +23,7 @@ function parseSheet() {
       list.push(game);
     }
     gList = list;
+    generateFilters();
     displayResults(gList);
   });
 }
