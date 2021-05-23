@@ -22,7 +22,8 @@ function parseSheet() {
       let game = new Game(completeList[i]);
       list.push(game);
     }
-    bgList = list;
+    gList = list;
+    displayResults(gList);
   });
 }
 

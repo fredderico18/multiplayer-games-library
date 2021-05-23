@@ -49,28 +49,32 @@ table {
 }
 
 /*-------------------------------
+---------------------------------
 THEME STYLE
+---------------------------------
 -------------------------------*/
 
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
-	line-height: 1.5em;
+	line-height: 1.5rem;
   width: 80%;
   margin: 0 auto;
-}
-
-header {
-	overflow: overlay;
-}
-
-b {
-	font-weight:bolder;
 }
 
 i {
 	font-family: "Font Awesome 5 Free";
 	font-weight: 900;
+}
+
+/*-------------------------------
+HEADER
+-------------------------------*/
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1em 0;
 }
 
 button, select {
@@ -95,135 +99,23 @@ select {
 	width: 150px;
 }
 
-#selectedGames {
-	margin: 2em 0;
+/*-------------------------------
+MAIN
+-------------------------------*/
 
-}
-
-.selectDiv {
-	position: relative;
-	float: left;
-	margin-right: 10px;
-}
-
-.selectDiv:after {
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	content: "\f0dd";
-	right: 11px;
-	position: absolute;
-	pointer-events: none;
-}
-
-h1 {
-  font-size: 2em;
-  font-weight: bold;
-  margin: 1em 0;
-}
-
-#settings, #gameFilters {
-  margin: 1em 0;
-}
-
-.container {
-	display:inline-grid;
-}
-
-a {
-	line-height: 0;
-}
-
-.container {
-	position: relative;
-	float:left;
-/*	margin: 0 10px; */
-}
-
-.overlay {
-	position: absolute;
-	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, 0.5); /* Black see-through */
+main {
+	margin: 2rem 0;
 	width: 100%;
-	height: 100%;
-	transition: .1s ease;
-	visibility: hidden;
-	float:left;
 }
 
-.linkA {
-	margin: 0 8%;
-	float:left;
-	width: 33%;
-	margin-top: 10%;
+main div {
+
+	display: inline;
+	width: 20%;
 }
 
-.logos {
-
-	width: 100%;
-
-}
-
-.container:hover .overlay {
-	visibility: visible;
-}
-
-#error {
-	z-index: 1;
-	background-color: #e74c3c;
-	color: white;
-	box-shadow: 10px 10px grey;
-	padding: 5px 5px;
-	display: inline-block;
-}
-
-	/* Loader section */
-#loader {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border: 16px solid #dadada;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-	box-shadow: 0px 0px 10px grey;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Add animation to "page content" */
-.animate-bottom {
-  position: relative;
-  -webkit-animation-name: animatebottom;
-  -webkit-animation-duration: 1s;
-  animation-name: animatebottom;
-  animation-duration: 1s
-}
-
-@-webkit-keyframes animatebottom {
-  from { bottom:-100px; opacity:0 }
-  to { bottom:0px; opacity:1 }
-}
-
-@keyframes animatebottom {
-  from{ bottom:-100px; opacity:0 }
-  to{ bottom:0; opacity:1 }
-}
-
-#pageleft, #pageright, #paginationItems {
-	visibility: hidden;
+main img {
+	height: 150px;
+	width: auto;
+	padding: .5rem 1rem;
 }
