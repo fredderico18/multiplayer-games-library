@@ -7,7 +7,7 @@ function displayResults(games) {
   const container = document.getElementsByTagName('main')[0];
   const htmlString = games.map((game) => {
     return `
-    <img src="${game.Picture}"></img>
+    <a href="${game.Link}"><img src="${game.Picture}"></img></a>
     `;
   }).join('');
   container.innerHTML = htmlString;
