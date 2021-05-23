@@ -78,7 +78,7 @@ h1 {
 }
 
 ul {
-	display: inline;
+	display: inline-block;
 }
 
 /*-------------------------------

@@ -1,5 +1,4 @@
 const filterSection = document.getElementById('filterSection');
-const playerFilter = document.getElementById('playerFilter');
 let gList;
 let filtersValues = [];
 
@@ -13,18 +12,35 @@ function displayResults(games) {
   container.innerHTML = htmlString;
 }
 
+// function generateFilters() {
+//   // iterates through every game
+//   for (let i = 0; i < gList.length; i++) {
+//     let game = gList[i];
+//     for (const key in game) {
+//       let name = game[key].trim();
+//     }
+//   }
+// }
+
 function generateFilters() {
-  const filtersList = [];
+  const playersList = [];
+  const typeList = [];
   for (let i = 0; i < gList.length; i++) {
     let game = gList[i];
     for (let j = 0; j < game.Players.length; j++) {
-      let filterName = game.Players[j].trim();
-      if (!filtersList.includes(filterName) && filterName !== "") {
-        filtersList.push(filterName);
+      let players = game.Players[j].trim();
+      if (!playersList.includes(players) && players !== "") {
+        playersList.push(players);
       }
     }
+
+    let type = game.Type;
+    if (!typeList.includes(type) && type !== "") {
+        typeList.push(type);
+    }
   }
-  displayFilters(filtersList);
+  displayFilters(playersList, "playerFilter");
+  displayFilters(typeList, "typeFilter");
 
   const checkboxesNode = document.querySelectorAll('.checkbox');
   const checkboxesArray = Array.from(checkboxesNode);
@@ -33,8 +49,9 @@ function generateFilters() {
   });
 }
 
-function displayFilters(filtersList) {
-  const htmlString = filtersList.map((item) => {
+function displayFilters(filters, id) {
+  const filterList = document.getElementById(id);
+  const htmlString = filters.map((item) => {
     return `
     <li>
       <input type="checkbox" id="${item}" class="checkbox" value="${item}">
@@ -42,7 +59,7 @@ function displayFilters(filtersList) {
       <br>
     </li>`;
   }).join('');
-  playerFilter.innerHTML = htmlString;
+  filterList.innerHTML = htmlString;
 }
 
 function selectFilter(e) {
