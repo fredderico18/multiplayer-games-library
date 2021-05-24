@@ -1,6 +1,6 @@
 const filterSection = document.getElementById('filterSection');
 let gList;
-let filtersValues = [];
+// let filtersValues = [];
 
 function displayResults(games) {
   const container = document.getElementsByTagName('main')[0];
@@ -42,10 +42,13 @@ function generateFilters() {
   displayFilters(playersList, "playerFilter");
   displayFilters(typeList, "typeFilter");
 
-  const checkboxesNode = document.querySelectorAll('.checkbox');
-  const checkboxesArray = Array.from(checkboxesNode);
-  checkboxesArray.forEach((checkbox) => {
-    checkbox.addEventListener('change', selectFilter);
+  const filtersNode = document.querySelectorAll('select');
+  const filtersArray = Array.from(filtersNode);
+  filtersArray.forEach((filter) => {
+    filter.addEventListener('change', function() {
+      let searchResult = getResults();
+      displayResults(searchResult);
+    });
   });
 }
 
@@ -53,28 +56,22 @@ function displayFilters(filters, id) {
   const filterList = document.getElementById(id);
   const htmlString = filters.map((item) => {
     return `
-    <li>
-      <input type="checkbox" id="${item}" class="checkbox" value="${item}">
-      <label for="${item}">${item}</label>
-      <br>
-    </li>`;
+    <option value="${item}">${item}</option>
+    `;
   }).join('');
-  filterList.innerHTML = htmlString;
-}
-
-function selectFilter(e) {
-  let filter = e.target;
-  if (filter.checked) {
-    filtersValues.push(filter.value);
-  } else {
-    let index = filtersValues.indexOf(filter.value);
-    filtersValues.splice(index, 1);
-  }
-  let searchResult = getResults();
-  displayResults(searchResult);
+  filterList.innerHTML += htmlString;
 }
 
 function searchFilters(game) {
+  const filtersValues = [];
+  const filtersNode = document.querySelectorAll('select');
+  const filtersArray = Array.from(filtersNode);
+  filtersArray.forEach((filter) => {
+    if (filter.value !== "") {
+      filtersValues.push(filter.value);
+    }
+  });
+
   if (filtersValues.length > 0) {
     for (let i = 0; i < game.Players.length; i++) {
       let mode = game.Players[i];
@@ -90,18 +87,10 @@ function searchFilters(game) {
 }
 
 function getResults() {
-  const filteredBgs = gList.filter((game) => {
+  const filteredGames = gList.filter((game) => {
     return (
       searchFilters(game)
     );
   });
-  return filteredBgs;
-}
-
-function includeSearch(array, string) {
-  for (let i = 0; i < array.length; i++) {
-    if (array[i].toLowerCase().includes(string)) {
-      return true;
-    }
-  }
+  return filteredGames;
 }
