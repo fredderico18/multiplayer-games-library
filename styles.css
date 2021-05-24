@@ -74,6 +74,12 @@ HEADER
 h1 {
   font-size: 2rem;
   font-weight: bold;
+  margin-top: 1em;
+}
+
+h2 {
+  font-size: 1rem;
+  font-style: italic;
   margin: 1em 0;
 }
 
