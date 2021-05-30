@@ -1,12 +1,12 @@
 const filterSection = document.getElementById('filterSection');
 let gList;
-// let filtersValues = [];
 
 function displayResults(games) {
   const container = document.getElementsByTagName('main')[0];
   const htmlString = games.map((game) => {
     return `
-    <a href="${game.Link}" target="_blank"><img src="${game.Picture}"></img></a>
+    <a href="${game.Link}" target="_blank" rel="noopener noreferrer">
+    <img src="${game.Picture}"></img></a>
     `;
   }).join('');
   container.innerHTML = htmlString;
@@ -23,22 +23,9 @@ function displayResults(games) {
 // }
 
 function generateFilters() {
-  const playersList = [];
-  const typeList = [];
-  for (let i = 0; i < gList.length; i++) {
-    let game = gList[i];
-    for (let j = 0; j < game.Players.length; j++) {
-      let players = game.Players[j].trim();
-      if (!playersList.includes(players) && players !== "") {
-        playersList.push(players);
-      }
-    }
+  const playersList = getFilterList("Players");
+  const typeList = getFilterList("Type");
 
-    let type = game.Type;
-    if (!typeList.includes(type) && type !== "") {
-        typeList.push(type);
-    }
-  }
   displayFilters(playersList, "playerFilter");
   displayFilters(typeList, "typeFilter");
 
@@ -52,6 +39,21 @@ function generateFilters() {
   });
 }
 
+function getFilterList(category) {
+  const list = [];
+  for (let i = 0; i < gList.length; i++) {
+    let game = gList[i];
+    for (let j = 0; j < game[category].length; j++) {
+      let key = game[category];
+      let item = key[j];
+      if (!list.includes(item) && !item=="") {
+        list.push(item);
+      }
+    }
+  }
+  return list;
+}
+
 function displayFilters(filters, id) {
   const filterList = document.getElementById(id);
   const htmlString = filters.map((item) => {
@@ -62,34 +64,34 @@ function displayFilters(filters, id) {
   filterList.innerHTML += htmlString;
 }
 
-function searchFilters(game) {
-  const filtersValues = [];
+function getFilters() {
+  const values = [];
   const filtersNode = document.querySelectorAll('select');
   const filtersArray = Array.from(filtersNode);
   filtersArray.forEach((filter) => {
-    if (filter.value !== "") {
-      filtersValues.push(filter.value);
-    }
+    values.push(filter.value);
   });
+  return values;
+}
 
-  if (filtersValues.length > 0) {
-    for (let i = 0; i < game.Players.length; i++) {
-      let mode = game.Players[i];
-      for (let j = 0; j < filtersValues.length; j++) {
-        if (mode == filtersValues[j]) {
-          return true;
-        }
+function searchFilters(category) {
+  const filtersValues = getFilters();
+  for (let i = 0; i < category.length; i++) {
+    let mode = category[i];
+    for (let j = 0; j < filtersValues.length; j++) {
+      if (mode == filtersValues[j]) {
+        return true;
       }
     }
-  } else {
-    return true;
   }
 }
 
+// Returns array of games that match the selected filters
 function getResults() {
   const filteredGames = gList.filter((game) => {
     return (
-      searchFilters(game)
+      searchFilters(game.Players) &&
+      searchFilters(game.Type)
     );
   });
   return filteredGames;

@@ -31,7 +31,7 @@ function parseSheet() {
 function Game(game) {
   this.Game = game[0];
   this.Players = splitArray(game[1]);
-  this.Type = game[2];
+  this.Type = splitArray(game[2]);
   this.Complexity = game[3];
   this.Tags = splitArray(game[4]);
   this.Price = game[5];
