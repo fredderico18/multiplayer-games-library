@@ -74,24 +74,24 @@ function getFilters() {
   return values;
 }
 
-function searchFilters(category) {
-  const filtersValues = getFilters();
-  for (let i = 0; i < category.length; i++) {
-    let mode = category[i];
-    for (let j = 0; j < filtersValues.length; j++) {
-      if (mode == filtersValues[j]) {
+function searchFilters(category, filter) {
+  if (filter !== "") {
+    for (let i = 0; i < category.length; i++) {
+      if (category[i] == filter) {
         return true;
       }
     }
   }
+  else {return true;}
 }
 
 // Returns array of games that match the selected filters
 function getResults() {
   const filteredGames = gList.filter((game) => {
+    const filters = getFilters();
     return (
-      searchFilters(game.Players) &&
-      searchFilters(game.Type)
+      searchFilters(game.Players, filters[0]) &&
+      searchFilters(game.Type, filters[1])
     );
   });
   return filteredGames;
