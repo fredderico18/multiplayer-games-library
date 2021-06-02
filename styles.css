@@ -83,8 +83,10 @@ h2 {
   margin: 1em 0;
 }
 
-ul {
-	display: inline-block;
+select {
+	background-color: #FFF;
+	border: 1.7px solid #000;
+	padding: 5px;
 }
 
 /*-------------------------------

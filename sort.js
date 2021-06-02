@@ -1,4 +1,3 @@
-const filterSection = document.getElementById('filterSection');
 let gList;
 
 function displayResults(games) {
@@ -12,31 +11,26 @@ function displayResults(games) {
   container.innerHTML = htmlString;
 }
 
-// function generateFilters() {
-//   // iterates through every game
-//   for (let i = 0; i < gList.length; i++) {
-//     let game = gList[i];
-//     for (const key in game) {
-//       let name = game[key].trim();
-//     }
-//   }
-// }
-
 function generateFilters() {
   const playersList = getFilterList("Players");
   const typeList = getFilterList("Type");
+  const compList = getFilterList("Complexity");
+  const priceList = getFilterList("Price");
+  const platList = getFilterList("Platform");
 
   displayFilters(playersList, "playerFilter");
   displayFilters(typeList, "typeFilter");
+  displayFilters(compList, "compFilter");
+  displayFilters(priceList, "priceFilter");
+  displayFilters(platList, "platFilter");
 
-  const filtersNode = document.querySelectorAll('select');
-  const filtersArray = Array.from(filtersNode);
-  filtersArray.forEach((filter) => {
-    filter.addEventListener('change', function() {
+  const filters = document.getElementsByTagName('select');
+  for (let i = 0; i < filters.length; i++) {
+    filters[i].addEventListener('change', function() {
       let searchResult = getResults();
       displayResults(searchResult);
     });
-  });
+  }
 }
 
 function getFilterList(category) {
@@ -64,13 +58,13 @@ function displayFilters(filters, id) {
   filterList.innerHTML += htmlString;
 }
 
-function getFilters() {
+function getFiltersValues() {
   const values = [];
-  const filtersNode = document.querySelectorAll('select');
-  const filtersArray = Array.from(filtersNode);
-  filtersArray.forEach((filter) => {
-    values.push(filter.value);
-  });
+  const filters = document.getElementsByTagName('select');
+
+  for (let i = 0; i < filters.length; i++) {
+    values.push(filters[i].value);
+  };
   return values;
 }
 
@@ -88,10 +82,13 @@ function searchFilters(category, filter) {
 // Returns array of games that match the selected filters
 function getResults() {
   const filteredGames = gList.filter((game) => {
-    const filters = getFilters();
+    const filters = getFiltersValues();
     return (
       searchFilters(game.Players, filters[0]) &&
-      searchFilters(game.Type, filters[1])
+      searchFilters(game.Type, filters[1]) &&
+      searchFilters(game.Complexity, filters[2]) &&
+      searchFilters(game.Price, filters[3]) &&
+      searchFilters(game.Platform, filters[4])
     );
   });
   return filteredGames;

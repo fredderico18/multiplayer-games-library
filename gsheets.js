@@ -32,10 +32,10 @@ function Game(game) {
   this.Game = game[0];
   this.Players = splitArray(game[1]);
   this.Type = splitArray(game[2]);
-  this.Complexity = game[3];
+  this.Complexity = splitArray(game[3]);
   this.Tags = splitArray(game[4]);
-  this.Price = game[5];
-  this.Platform = game[6];
+  this.Price = splitArray(game[5]);
+  this.Platform = splitArray(game[6]);
   this.Picture = game[7];
   this.Link = game[8];
   this.Video = game[9];
