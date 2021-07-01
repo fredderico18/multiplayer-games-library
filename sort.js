@@ -12,15 +12,13 @@ function displayResults(games) {
 }
 
 function generateFilters() {
-  const playersList = getFilterList("Players");
+  const playersList = getFilterList("Players").sort((a,b) => a-b);
   const typeList = getFilterList("Type");
-  const compList = getFilterList("Complexity");
   const priceList = getFilterList("Price");
   const platList = getFilterList("Platform");
 
   displayFilters(playersList, "playerFilter");
   displayFilters(typeList, "typeFilter");
-  displayFilters(compList, "compFilter");
   displayFilters(priceList, "priceFilter");
   displayFilters(platList, "platFilter");
 
